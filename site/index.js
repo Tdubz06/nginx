@@ -1,35 +1,15 @@
-const request = require('request');
 
 let url = "https://zqz96cc7lj.execute-api.ca-central-1.amazonaws.com/prod"
 
-let options = {json: true};
-
-request(url, options, (error, res, body) => {
-    if (error) {
-        return  console.log(error)
-    };
-
-    if (!error && res.statusCode == 200) {
-        // console.log(body)
-
-    //     const sortedData = body.body.sort((a, b) => {
-    //         const amountA = parseFloat(a.amount);
-    //         const amountB = parseFloat(b.amount);
-        
-    //         // Compare amounts in descending order
-    //         return amountB - amountA;
-    //     });
-    
-    //     sortedData.forEach(user => {
-    //       const username = user.username;
-    //       const amount = parseFloat(user.amount); // Convert the amount to a numeric value if needed
-    
-    //       // You can do whatever you want with the username and amount here, such as printing them to the console
-    //       // console.log(`Username: ${username}, Amount: ${amount}`);
-    //       //reference the data using sortedData[0].username and sortedData[0].amount
-    //   });
-
-
+fetch(url)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(body => {
+    // Your code to process the JSON data and append it to the leaderboard here
 
     const sortedData = body.body.sort((a, b) => {
         const amountA = parseFloat(a.amount);
@@ -60,7 +40,7 @@ request(url, options, (error, res, body) => {
       
         // Create the person balance div
         const personBalanceDiv = document.createElement('div');
-        personBalanceDiv.classList.add('person-balance');
+        personBalanceDiv.classList.add('person-ballance');
         personBalanceDiv.textContent = amount.toFixed(2); // Assuming you want to display the balance with 2 decimal places
         const tokenShortSpan = document.createElement('span');
         tokenShortSpan.classList.add('token-short');
@@ -116,7 +96,8 @@ request(url, options, (error, res, body) => {
         // Append the person div to the leaderboard div
         leaderboardDiv.appendChild(personDiv);
       });
-      
 
-    };
-});
+  })
+  .catch(error => {
+    console.error("Fetch error:", error);
+  });
