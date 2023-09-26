@@ -41,7 +41,7 @@ fetch(url)
         // Create the person balance div
         const personBalanceDiv = document.createElement('div');
         personBalanceDiv.classList.add('person-ballance');
-        personBalanceDiv.textContent = amount.toFixed(9);
+        personBalanceDiv.textContent = amount.toFixed(2);
         const tokenShortSpan = document.createElement('span');
         tokenShortSpan.classList.add('token-short');
         tokenShortSpan.textContent = '\u00A0TDGC'; // Using '\u00A0' for non-breaking space
